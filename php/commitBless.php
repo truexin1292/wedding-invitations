@@ -1,6 +1,6 @@
 <?php
 ini_set("error_reporting", E_ALL);
-$pdo = new PDO("mysql:host=localhost;dbname=wedding", "root", "");
+$pdo = new PDO("mysql:host=localhost:3306;dbname=wedding", "root", "123456");
 $pdo->query("SET NAMES utf8");
 
 $name = $_GET['name'];

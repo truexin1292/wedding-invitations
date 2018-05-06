@@ -1,17 +1,14 @@
-/**
- * Created by brickspert on 2016/12/28.
- */
 /*祝福组件*/
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './Bless.scss';
-import {getBless, commitBless} from '../../reducers/bless/bless'
-import {connect} from 'react-redux';
+import { getBless, commitBless } from '../../reducers/bless/bless';
+import { connect } from 'react-redux';
 
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 
 @connect(
-    state => ({bless: state.bless}),
-    {getBless, commitBless}
+    state => ({ bless: state.bless }),
+    { getBless, commitBless }
 )
 export default class Bless extends Component {
     constructor(props) {
@@ -19,7 +16,7 @@ export default class Bless extends Component {
         this.state = {}
     }
 
-    _closeBless() {
+    closeBless = () => {
         this.props.close();
     }
 
@@ -29,12 +26,12 @@ export default class Bless extends Component {
         document.getElementsByTagName('html')[0].style.height = document.body.clientHeight + 'px';
     }
 
-    _restText() {
+    restText = () => {
         this.refs.blessName.value = '';
         this.refs.blessText.value = '';
     }
 
-    _commitBless() {
+    commitBless = () => {
         if (this.props.committing) {
             return;
         }
@@ -56,11 +53,11 @@ export default class Bless extends Component {
             alert('祝福最多200个字，太多了放不下啊~');
             return;
         }
-        this.props.commitBless(name, text, ()=>this._restText());
+        this.props.commitBless(name, text, this.restText);
     }
 
     render() {
-        const blessPanel = this.props.bless.blesses.map((item, index)=> {
+        const blessPanel = this.props.bless.blesses.map((item, index) => {
             const itemClassName = index % 2 == 0 ? "bless-item bless-item-left" : "bless-item bless-item-right";
             return (
                 <div className={itemClassName} key={index}>
@@ -74,13 +71,13 @@ export default class Bless extends Component {
             <div className="bless">
                 <div className="top-box">
                     <div className="left-box">
-                        <input type="text" className="bless-name" ref="blessName" placeholder="请输入姓名"/>
+                        <input type="text" className="bless-name" ref="blessName" placeholder="请输入姓名" />
                         <textarea className="bless-text" ref="blessText" placeholder="请输入祝福的话语">
                         </textarea>
                     </div>
                     <div className="right-box">
-                        <div className="commit" onClick={()=>this._commitBless()}><p>确定</p></div>
-                        <div className="close" onClick={()=>this._closeBless()}><p>关闭</p></div>
+                        <div className="commit" onClick={this.commitBless}><p>确定</p></div>
+                        <div className="close" onClick={this.closeBless}><p>关闭</p></div>
                     </div>
                 </div>
                 <div className="bottom-box">

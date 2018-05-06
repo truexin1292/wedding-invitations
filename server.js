@@ -10,9 +10,9 @@ var compiler = webpack(config);
 
 app.use(history());
 
-app.use(proxy('/wedding', {
-    target: 'http://localhost:80',
-    changeOrigin: true
+app.use(proxy('/php', {
+    target: 'http://192.168.0.100:80',
+    changeOrigin: true,
 }));
 
 app.use(require('webpack-dev-middleware')(compiler, {
